@@ -6,11 +6,12 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 
 def travels(request, id):
-    logged_in = request.session['logged_in']
+    # logged_in = request.session['logged_in']
     context = {
-        "person": User.objects.get(id=id),
-        "travels" : Travel.objects.all(),
+        "loggedin": User.objects.get(id=id),
+        "travels" : Travel.objects.all()
     }
+    # print Travel.objects.all()[0].travelmaker_id
     return render(request, 'travels/index.html', context)
 
 def create(request):

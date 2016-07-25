@@ -31,7 +31,7 @@
             <div class="row">
                 <div class="col-xs-18 col-md-12"><h1>Travel Buddy</h1></div>
             </div>
-            <h3>Hello, {{ person.name }}!</h3>
+            <h3>Hello, {{ loggedin.name }}!</h3>
             <h4>Your Trip Schedules</h4>
             <table class="table table-hover">
                 <tr>
@@ -40,12 +40,20 @@
                     <th>Travel End Date</th>
                     <th>Plan</th>
                 </tr>
-                {% for travels in person.travelplanner.all %}
+                {% for travel in loggedin.travelplanner.all %}
                 <tr>
-                    <td><a href="{% url 'travels_show' id=travels.id%}">{{ travels.destination }}</td>
-                    <td>{{ travels.travel_date_from }}</td>
-                    <td>{{ travels.travel_date_to }}</td>
-                    <td>{{ travels.description }}</td>
+                    <td><a href="{% url 'travels_show' id=travel.id%}">{{ travel.destination }}</a></td>
+                    <td>{{ travel.travel_date_from }}</td>
+                    <td>{{ travel.travel_date_to }}</td>
+                    <td>{{ travel.description }}</td>
+                </tr>
+                {% endfor %}
+                {% for travel in loggedin.travelmaker.all  %}
+                <tr>
+                    <td><a href="{% url 'travels_show' id=travel.id%}">{{ travel.destination }} <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></a></td>
+                    <td>{{ travel.travel_date_from }}</td>
+                    <td>{{ travel.travel_date_to }}</td>
+                    <td>{{ travel.description }}</td>
                 </tr>
                 {% endfor %}
             </table>
@@ -59,12 +67,15 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-1"></div>
                 <div class="col-md-1"></div>
-                <div class="col-md-2">
-                    <a href="{% url 'travels_create'%}">Add Travel Plan</a>
-                </div>
                 <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <form action="{% url 'travels_create' %}" method="POST">
+                    {% csrf_token %}
+                    <input class="btn btn-default" type="submit" value="Add Travel Plan">
+                    </form>
+                </div>
             </div>
-            <h4>Travel Plans by Other Buddies</h4>
+            <h4>Travel Plans by Other Buddies <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span></h4>
             <table class="table table-hover">
                 <tr>
                     <th>Name</th>
@@ -74,7 +85,7 @@
                     <th>Join</th>
                 </tr>
                 {% for travel in travels %}
-                {% if person.name != travel.travelplanner_id.name %}
+                {% if loggedin.name != travel.travelplanner_id.name %}
                 <tr>
                     <td>{{ travel.travelplanner_id.name }}</td>
                     <td><a href="{% url 'travels_show' id=travel.id%}">{{ travel.destination }}</td>
