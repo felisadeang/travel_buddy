@@ -47,7 +47,3 @@ class Travel(models.Model):
     travelmaker_id = models.ManyToManyField(User, related_name="travelmaker")
     travelManager = TravelManager()
     objects = models.Manager()
-
-# class Travelers(models.Model):
-#     created_at = models.DateTimeField(auto_now_add=True)
-# 	updated_at = models.DateTimeField(auto_now=True)

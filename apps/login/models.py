@@ -19,13 +19,13 @@ class UserManager(models.Manager):
         if userInfo['password'] != userInfo['confirm_password']:
             errors.append('Passwords do not match.')
             passFlag = False
-        if len(User.objects.filter(username=userInfo['username'])) > 0:
+        if len(self.filter(username=userInfo['username'])) > 0:
 			errors.append("Registration is invalid.")
 			passFlag = False
 
         if passFlag == True:
             hashed = bcrypt.hashpw(userInfo['password'].encode(), bcrypt.gensalt())
-            User.objects.create(name = userInfo['name'], username = userInfo['username'], password = hashed)
+            self.create(name = userInfo['name'], username = userInfo['username'], password = hashed)
         return [passFlag, errors]
 
     def ValidLogin(self, userInfo):

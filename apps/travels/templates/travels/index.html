@@ -4,7 +4,6 @@
         <title>Travel Dashboard</title>
         <meta name="description" content="Travel Dashboard for Travel Buddy">
         {% load staticfiles %}
-        <!-- <link rel="stylesheet" type="text/css" href="{% static 'travels/css/styles.css' %}"> -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     </head>
     <body>
@@ -93,8 +92,8 @@
                     <td>{{ travel.travel_date_to }}</td>
                     <td><form action="{% url 'travels_join' %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="destination" value="{{travel.id}}">
-                    <input type="hidden" name="traveler" value="{{ person.id }}">
+                    <input type="hidden" name="destination" value="{{ travel.id}}">
+                    <input type="hidden" name="traveler" value="{{ loggedin.id }}">
                     <input class="btn btn-default" type="submit" value="Join">
                     </form></td>
                 </tr>

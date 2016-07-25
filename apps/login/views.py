@@ -23,10 +23,8 @@ def register(request):
 def registration(request):
     results = User.userManager.isValidRegistration(request.POST)
     if results[0]:
-		passflag = True
 		return redirect(reverse('login_index'))
     else:
-    	passflag = False
     	errors = results[1]
     	for error in errors:
             messages.error(request, error)
