@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Travel Dashboard</title>
+        <meta name="description" content="Travel Dashboard for Travel Buddy">
+        {% load staticfiles %}
+        <!-- <link rel="stylesheet" type="text/css" href="{% static 'travels/css/styles.css' %}"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-2">
+                        <form action="{% url 'login_logout' %}" method="POST">
+                        {% csrf_token %}
+                        <input class="btn btn-default" type="submit" value="Logout">
+                        </form>
+                    </div>
+                </div>
+            <div class="row">
+                <div class="col-xs-18 col-md-12"><h1>Travel Buddy</h1></div>
+            </div>
+            <h3>Hello, {{ person.name }}!</h3>
+            <h4>Your Trip Schedules</h4>
+            <table class="table table-hover">
+                <tr>
+                    <th>Destination</th>
+                    <th>Travel Start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Plan</th>
+                </tr>
+                {% for travels in person.travelplanner.all %}
+                <tr>
+                    <td><a href="{% url 'travels_show' id=travels.id%}">{{ travels.destination }}</td>
+                    <td>{{ travels.travel_date_from }}</td>
+                    <td>{{ travels.travel_date_to }}</td>
+                    <td>{{ travels.description }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-1"></div>
+                <div class="col-md-2">
+                    <a href="{% url 'travels_create'%}">Add Travel Plan</a>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+            <h4>Travel Plans by Other Buddies</h4>
+            <table class="table table-hover">
+                <tr>
+                    <th>Name</th>
+                    <th>Destination</th>
+                    <th>Travel Start Date</th>
+                    <th>Travel End Date</th>
+                    <th>Join</th>
+                </tr>
+                {% for travel in travels %}
+                {% if person.name != travel.travelplanner_id.name %}
+                <tr>
+                    <td>{{ travel.travelplanner_id.name }}</td>
+                    <td><a href="{% url 'travels_show' id=travel.id%}">{{ travel.destination }}</td>
+                    <td>{{ travel.travel_date_from }}</td>
+                    <td>{{ travel.travel_date_to }}</td>
+                    <td><form action="{% url 'travels_join' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="destination" value="{{travel.id}}">
+                    <input type="hidden" name="traveler" value="{{ person.id }}">
+                    <input class="btn btn-default" type="submit" value="Join">
+                    </form></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+
+
+        </div>
+    </body>
+</html>

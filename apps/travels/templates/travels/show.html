@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load staticfiles %}
+        <link rel="stylesheet" type="text/css" href="{% static 'travels/css/styles.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <title>Destination</title>
+    </head>
+    <body>
+        <div id="container">
+
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-1">
+                        <form action="{% url 'login_index' %}" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-default" type="submit" value="Home">
+                        </form>
+                    </div>
+                    <div class="col-md-1">
+                        <form action="{% url 'login_logout' %}" method="post">
+                        {% csrf_token %}
+                        <input class="btn btn-default" type="submit" value="Logout">
+                        </form>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-17 col-md-11"><h1>Travel Buddy</h1></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1 col-md-1"></div>
+                    <div class="col-xs-11 col-sm-5 col-md-7">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{{travel.destination}}</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">Description: {{travel.description}}</li>
+                                    <li class="list-group-item">Travel Date From: {{travel.travel_date_from}}</li>
+                                    <li class="list-group-item">Travel Date To: {{travel.travel_date_to}}</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-5 col-md-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Other Buddies Joining This Trip</h4>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="list-group">
+                                    {% for person in travel.travelmaker_id.all  %}
+                                    {% if person.name != travel.travelplanner_id.name %}
+                                    <li class="list-group-item"> {{person.name}} </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-md-1">
+                </div>
+        </div>
+    </body>
+</html>
