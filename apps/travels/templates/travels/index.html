@@ -83,8 +83,7 @@
                     <th>Travel End Date</th>
                     <th>Join</th>
                 </tr>
-                {% for travel in travels %}
-                {% if loggedin.name != travel.travelplanner_id.name %}
+                {% for travel in trips_off %}
                 <tr>
                     <td>{{ travel.travelplanner_id.name }}</td>
                     <td><a href="{% url 'travels_show' id=travel.id%}">{{ travel.destination }}</td>
@@ -97,7 +96,6 @@
                     <input class="btn btn-default" type="submit" value="Join">
                     </form></td>
                 </tr>
-                {% endif %}
                 {% endfor %}
             </table>
 

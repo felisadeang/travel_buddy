@@ -6,9 +6,11 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 
 def travels(request, id):
+    user = User.objects.get(id=request.session["logged_in"])
     context = {
         "loggedin": User.objects.get(id=id),
-        "travels" : Travel.objects.all()
+        "travels" : Travel.objects.all(),
+        "trips_off": Travel.objects.exclude(travelplanner_id=user).exclude(travelmaker_id=user.id)
     }
     return render(request, 'travels/index.html', context)
 
@@ -37,4 +39,4 @@ def join(request):
         travelplans = Travel.objects.get(id=dest_id)
         travelplans.travelmaker_id.add(traveler)
         travelplans.save()
-        return redirect(reverse('login_travels', kwargs={'id':id}))
+        return redirect(reverse('login_travels', kwargs={'id':request.session['logged_in']}))
