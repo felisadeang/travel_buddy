@@ -10,12 +10,7 @@
     <body>
     <div class="container">
         <div class="row">
-          <div class="col-md-1"></div>
-          <div class="col-md-1"></div>
-          <div class="col-md-1"></div>
-          <div class="col-md-1"></div>
-          <div class="col-md-1"></div>
-          <div class="col-md-1"></div>
+          <div class="col-md-6"></div>
           <div class="col-md-1"><form action="{% url 'login_index' %}" method="post">
               {% csrf_token %}
               <input class="btn btn-default" type="submit" value="Home">
@@ -24,14 +19,11 @@
           {% csrf_token %}
           <input class="btn btn-default" type="submit" value="Logout">
           </form></div>
-          <div class="col-md-1"></div>
-          <div class="col-md-1"></div>
-          <div class="col-md-1"></div>
-          <div class="col-md-1"></div>
+          <div class="col-md-4"></div>
         </div>
         <div class="row">
-            <div class="col-xs-6 col-md-4"></div>
-            <div class="col-xs-6 col-md-4">
+            <div class="col-xs-6 col-md-2"></div>
+            <div class="col-xs-6 col-md-6">
                 {% if messages %}
                 <ul class="list-group">
                     <li class="list-group-item list-group-item-danger">ATTENTION REQUIRED!</li>
@@ -68,22 +60,12 @@
                     </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
-                        <div class="col-md-1"></div>
+                        <div class="col-md-11"></div>
                         <div class="col-md-1"><input class="btn btn-default" id="submitadd" type="submit" value="Add"></div>
                     </div>
                     </form>
                 </div>
-                <div class="col-xs-6 col-md-4"></div>
+                <div class="col-xs-6 col-md-2"></div>
             </div>
     </div>
 </body>

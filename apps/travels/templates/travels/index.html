@@ -10,16 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
-                    <div class="col-md-1"></div>
+                    <div class="col-md-10"></div>
                     <div class="col-md-2">
                         <form action="{% url 'login_logout' %}" method="POST">
                         {% csrf_token %}
@@ -38,6 +29,7 @@
                     <th>Travel Start Date</th>
                     <th>Travel End Date</th>
                     <th>Plan</th>
+                    <th>Action</th>
                 </tr>
                 {% for travel in loggedin.travelplanner.all %}
                 <tr>
@@ -45,6 +37,7 @@
                     <td>{{ travel.travel_date_from }}</td>
                     <td>{{ travel.travel_date_to }}</td>
                     <td>{{ travel.description }}</td>
+                    <td><a href="{% url 'travels_remove' id=travel.id %}">Delete</a></td>
                 </tr>
                 {% endfor %}
                 {% for travel in loggedin.travelmaker.all  %}
@@ -53,20 +46,12 @@
                     <td>{{ travel.travel_date_from }}</td>
                     <td>{{ travel.travel_date_to }}</td>
                     <td>{{ travel.description }}</td>
+                    <td>Unjoin</td>
                 </tr>
                 {% endfor %}
             </table>
             <div class="row">
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
-                <div class="col-md-1"></div>
+                <div class="col-md-10"></div>
                 <div class="col-md-2">
                     <form action="{% url 'travels_create' %}" method="POST">
                     {% csrf_token %}
@@ -81,7 +66,7 @@
                     <th>Destination</th>
                     <th>Travel Start Date</th>
                     <th>Travel End Date</th>
-                    <th>Join</th>
+                    <th>Action</th>
                 </tr>
                 {% for travel in trips_off %}
                 <tr>

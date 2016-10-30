@@ -3,7 +3,7 @@ from .models import User
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 
-
+# this is the page where they can log in. if a user is logged in, they are redirected to the index page
 def index(request):
     try:
         request.session['logged_in']
@@ -30,7 +30,7 @@ def registration(request):
             messages.error(request, error)
         return redirect(reverse('login_register'))
 
-
+# this logs in the user
 def login(request):
     results = User.userManager.ValidLogin(request.POST)
     if results[0]:
@@ -46,6 +46,7 @@ def login(request):
             messages.error(request, error)
         return redirect(reverse('login_index'))
 
+# this logs out the user
 def logout(request):
 	request.session.clear()
 	return redirect (reverse('login_index'))
